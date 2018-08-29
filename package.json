@@ -6,11 +6,18 @@
   "directories": {
     "test": "test"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/diliburong/curry-simple.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "curry"
+    "curry",
+    "curry-simple",
+    "mini",
+    "curried function"
   ],
   "author": "diliburong",
   "license": "MIT"
