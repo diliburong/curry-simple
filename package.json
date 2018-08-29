@@ -1,6 +1,6 @@
 {
   "name": "curry-simple",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "convert multi-argument function to curried function",
   "main": "index.js",
   "directories": {
