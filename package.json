@@ -11,7 +11,7 @@
     "url": "git://github.com/diliburong/curry-simple.git"
   },
   "scripts": {
-    "test": "node ./test/test.js"
+    "test": "mocha test"
   },
   "keywords": [
     "curry",
@@ -20,5 +20,8 @@
     "curried function"
   ],
   "author": "diliburong",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
 }

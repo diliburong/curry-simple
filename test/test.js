@@ -1,27 +1,41 @@
 const curry = require('../index.js');
+const assert = require('assert');
 
+describe('curry', () => {
+    it('should be curried', () => {
+        var add = curry(function (a, b, c) { return a + b + c });
 
-function multiFn(a, b, c) {
-    return a * b * c;
-}
+        assert.equal(add(1, 2, 3), add(1)(2)(3));
+        assert.equal(typeof add(1), 'function');
+        assert.equal(typeof add(1)(2), 'function');
+        assert.equal(typeof add(1)(2)(3), 'number');
+        assert.equal(typeof add(1, 2, 3), 'number');
+    });
 
-var multi = curry(multiFn);
-console.log(multi(2)(3)(4));
+    it('should be pure', () => {
+        var add = curry(function (a, b) { return a + b });
+        var addOne = add(1);
+        var addTwo = add(2);
 
-var add = curry(function (a, b) { return a + b });
+        assert.equal(addOne(1), 2);
+        assert.equal(addTwo(1), 3);
+        assert.equal(add(1, 2), addOne(2));
+        assert.equal(add(1, 2), addTwo(1));
 
-//-- it can be called like normal:
-console.log("add: " + add(1, 2)) //= 3
+        var zipWith = curry(function (a, b) {
+            return a.map(function (val, i) { return val + b[i] });
+        });
+        var zipAddWith123 = zipWith([1, 2, 3]);
 
-var add1 = add(1);
-console.log("add1：" + add1(2)) //= 3;
+        assert.deepEqual(zipWith([1, 2, 3], [1, 2, 3]), zipAddWith123([1, 2, 3]))
 
-var zipWith = curry(function (a, b) {
-    return a.map(function (val, i) { return val + b[i] });
-});
+    });
 
+    it('should allow multiple arguments to be passed at a time', function () {
+        var sum3 = curry(function (a, b, c) { return a + b + c });
 
-var zipAddWith123 = zipWith([1, 2, 3]);
-
-console.log(zipWith([1, 2, 3], [1, 2, 3]));
-console.log(zipAddWith123([5, 6, 7]));
+        assert.equal(sum3(1, 2, 3), sum3(1, 2)(3));
+        assert.equal(sum3(1, 2, 3), sum3(1)(2, 3));
+        assert.equal(sum3(1, 2, 3), sum3(1)(2)(3));
+    });
+})
